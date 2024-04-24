@@ -1,0 +1,27 @@
+name: Test And Deploy Helm Charts
+
+on:
+  push:
+    branches:
+      - main
+env: 
+    AZURE_REGISTRY: madaurus.azurecr.io
+    AZURE_REGISTRY_USER: madaurus
+    AZURE_REGISTRY_PASSWORD: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
+jobs:
+    add_registery:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Login to ACR using Helm
+              run: echo ${{ secrets.AZURE_REGISTRY_PASSWORD }} | helm registry login ${{ env.AZURE_REGISTRY }} --username ${{ env.AZURE_REGISTRY_USER }} --password-stdin
+            - name: Test Helm
+              run: helm lint .
+            - name: Push Helm Chart
+              run: helm push . ${{ env.AZURE_REGISTRY }}/madaurus-charts
+
+        
+                        
+        
+
+
+
