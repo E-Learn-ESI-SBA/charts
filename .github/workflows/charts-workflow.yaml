@@ -3,7 +3,7 @@ name: Test And Deploy Helm Charts
 on:
   push:
     branches:
-      - main
+      - master
 env: 
     AZURE_REGISTRY: madaurus.azurecr.io
     AZURE_REGISTRY_USER: madaurus
