@@ -4,3 +4,4 @@ description: A Helm charts for Madaurus application
 type: application
 version: 0.1.0
 appVersion: "1.16.0"
+icon: "https://elearningindustry.com/wp-content/uploads/2020/08/elearning-vs-classroom-based-learning.png"

@@ -1,10 +1,13 @@
 
 replicaCount: 1
 
+deployment: 
+      name: materials
 image:
   repository:  madaurus.azurecr.io/materials
   pullPolicy: IfNotPresent
   tag: "latest"
+
 
 imagePullSecrets: []
 nameOverride: ""
@@ -14,9 +17,9 @@ serviceAccount:
   create: true
   automount: true
   annotations: {}
-  name: "material service"
+  name: materials
 
-podAnnotations: {}
+    
 podLabels: {}
 
 podSecurityContext: {}
@@ -98,11 +101,48 @@ tolerations: []
 
 affinity: {}
 
+
+
+
+
+
+
+secrets: 
+    enabled: true
+    name: material-secrets
+    data:
+      JWT_SECRET: "#D3f4ultJWTS3cr3t#"
+
 pvc:
-  name:  material-pvc
+  name: material-pvc
   storageClassName: madaurus-sc
   volumeName: material-pv
   accessModes: ReadWriteOnce
   storage: 25Gi
 
 
+
+container:
+  name: material
+  port: 80
+  containerPort: 8080
+  env:
+        -  name: ENVIRONMENT
+           valueFrom:
+            configMapKeyRef:
+              name: materials-config
+              key: "environment" 
+        -  name: JWT_SECRET
+           valueFrom:
+            secretKeyRef:
+              name: materials-secrets
+              key: "JWT_SECRET"
+
+localDatabase:
+      enabled: false
+
+configmap:
+    enabled: true
+    name: materials-config
+    data:
+      environment: "development"

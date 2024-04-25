@@ -10,6 +10,11 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
+
+container:
+  name: staff
+  port: 80
+  containerPort: 8080
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -95,9 +100,27 @@ tolerations: []
 
 affinity: {}
 pvc:
-  name:  material-pvc
+  name:  staff-pvc
   storageClassName: madaurus-sc
-  volumeName: material-pv
+  volumeName: staff-pv
   accessModes: ReadWriteOnce
-  storage: 25Gi
+  storage: 15Gi
 
+jwtSecret: "#D3f4ultJWTS3cr3t#"
+
+#! local database 
+
+localDatabase:
+  name: material-db
+  image: madaurus.azurecr.io/madaurus-db
+  port: 5432
+  env:
+    - name: POSTGRES_DB
+      value: material
+    - name: POSTGRES_USER
+      value: material
+    - name: POSTGRES_PASSWORD
+      value: material
+  volumeMounts:
+    - name: default_storage
+      mountPath: /var/lib/postgresql/data    
