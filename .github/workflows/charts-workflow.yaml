@@ -14,12 +14,11 @@ jobs:
         steps:
             - name: Sync With Github Repo
               uses: actions/checkout@v3  
-            - name: Login to ACR using Helm
-              run: echo ${{ secrets.AZURE_REGISTRY_PASSWORD }} | helm registry login ${{ env.AZURE_REGISTRY }} --username ${{ env.AZURE_REGISTRY_USER }} --password-stdin
+            # - name: Login to ACR using Helm
+              # run: echo ${{ secrets.AZURE_REGISTRY_PASSWORD }} | helm registry login ${{ env.AZURE_REGISTRY }} --username ${{ env.AZURE_REGISTRY_USER }} --password-stdin
             - name: Test Helm
               run: helm lint . -f values/material.values.yaml
-            - name: Push Helm Chart
-              run: helm push . ${{ env.AZURE_REGISTRY }}/madaurus-charts
+            
 
         
                         
