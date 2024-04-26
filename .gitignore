@@ -3,3 +3,5 @@ kafka/
 playbook/
 
 *.tgz
+
+.vscode/

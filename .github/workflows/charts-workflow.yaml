@@ -1,4 +1,4 @@
-name: Test And Deploy Helm Charts
+name: Test  Helm Charts
 
 on:
   push:
@@ -16,9 +16,10 @@ jobs:
               uses: actions/checkout@v3  
             # - name: Login to ACR using Helm
               # run: echo ${{ secrets.AZURE_REGISTRY_PASSWORD }} | helm registry login ${{ env.AZURE_REGISTRY }} --username ${{ env.AZURE_REGISTRY_USER }} --password-stdin
-            - name: Test Helm
+            - name: Test Helm With materials Values
               run: helm lint . -f values/material.values.yaml
-            
+            - name: Test Helm With staff Values
+              run: helm lint . -f values/staff.values.yaml
 
         
                         
