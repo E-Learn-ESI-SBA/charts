@@ -1,0 +1,8 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: madaurus-sc
+  namespaces: madaurus
+provisioner: io.openebs.csi-mayastor
+parameters:
+  pool: pool-madaurus2-36a4c8.img

@@ -114,6 +114,7 @@ secrets:
       JWT_SECRET: I0QzZjR1bHRKV1RTM2NyM3Qj
 
 pvc:
+  enabled: true
   name: material-pvc
   storageClassName: madaurus-sc
   volumeName: material-pvc
