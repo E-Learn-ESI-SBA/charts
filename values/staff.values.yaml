@@ -124,8 +124,8 @@ secrets:
     enabled: true
     name: staff-secrets
     data:
-      JWT_SECRET: "#D3f4ultJWTS3cr3t#"
-      SECRET_KEY: "#D3f4ultJWTS3cr3t#"
+      JWT_SECRET: I0QzZjR1bHRKV1RTM2NyM3Qj
+      SECRET_KEY: I0QzZjR1bHRKV1RTM2NyM3Qj
 
 
 container:

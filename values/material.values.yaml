@@ -111,7 +111,7 @@ secrets:
     enabled: true
     name: material-secrets
     data:
-      JWT_SECRET: "#D3f4ultJWTS3cr3t#"
+      JWT_SECRET: I0QzZjR1bHRKV1RTM2NyM3Qj
 
 pvc:
   name: material-pvc
