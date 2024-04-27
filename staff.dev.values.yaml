@@ -93,6 +93,7 @@ tolerations: []
 
 affinity: {}
 pvc:
+  enabled: true
   name:  staff-pvc
   storageClassName: madaurus-sc
   volumeName: staff-pv
