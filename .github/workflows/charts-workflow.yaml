@@ -11,7 +11,7 @@ env:
     CHART_NAME: madaurus
     CHART_VERSION: 0.1.0
 jobs:
-    add_registery:
+    test:
         runs-on: ubuntu-latest
         steps:
             - name: Sync With Github Repo
@@ -22,14 +22,7 @@ jobs:
               run: helm lint . -f values/material.values.yaml
             - name: Test Helm With staff Values
               run: helm lint . -f values/staff.values.yaml              
-            - name: Azure Login
-              uses: Azure/login@v2.1.0
-              with:
-                  creds: ${{ secrets.AZURE_CREDENTIALS }}
-            - name: Build Package
-              run: helm package .
-            - name: Push the chart to ACR
-              run: az acr helm push ${{env.CHART_NAME}}-${{env.CHART_VERSION}}.tgz -n ${{ env.AZURE_REGISTRY_USER }}
+            
         
                 
 

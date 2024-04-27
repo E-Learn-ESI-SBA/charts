@@ -4,7 +4,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{.Values.configmap.name}}
-  namespace: maduarus
+  namespace: madaurus
 data:
 {{- with .Values.configmap.data}}
   {{- toYaml . | nindent 2 }}
@@ -14,7 +14,7 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: maduarus
+  namespace: madaurus
   name: {{ include "..fullname" . }}
   labels:
     {{- include "..labels" . | nindent 4 }}
@@ -101,7 +101,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  namespace: maduarus
+  namespace: madaurus
   name: {{ .Values.pvc.name }}
 spec:
   storageClassName: maduarus-sc # Constant value for now
@@ -117,7 +117,7 @@ spec:
 apiVersion: v1
 kind: Secret
 metadata:
-  namespace: maduarus
+  namespace: madaurus
   name: {{.Values.secrets.name}}
 type: Opaque
 data:

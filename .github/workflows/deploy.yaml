@@ -1,0 +1,25 @@
+name: Push the charts to github pages 
+
+on:
+  workflow_dispatch:
+
+env: 
+    AZURE_REGISTRY: madaurus.azurecr.io
+    AZURE_REGISTRY_USER: madaurus
+    AZURE_REGISTRY_PASSWORD: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
+    CHART_NAME: madaurus
+    CHART_VERSION: 0.1.0
+jobs:
+    add_registery:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Sync With Github Repo
+              uses: actions/checkout@v3  
+            - name: Azure Login
+              uses: Azure/login@v2.1.0
+              with:
+                  creds: ${{ secrets.AZURE_CREDENTIALS }}
+            - name: Build Package
+              run: helm package .
+            - name: Push the chart to ACR
+              run: az acr helm push ${{env.CHART_NAME}}-${{env.CHART_VERSION}}.tgz -n ${{ env.AZURE_REGISTRY_USER }}
