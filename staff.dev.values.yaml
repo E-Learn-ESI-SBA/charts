@@ -95,10 +95,10 @@ affinity: {}
 pvc:
   enabled: true
   name:  staff-pvc
-  storageClassName: mayastor
+  storageClassName: madaurus-sc
   volumeName: staff-pv
   accessModes: ReadWriteOnce
-  storage: 8Gi
+  storage: 10Gi
 
 
 #! local database 

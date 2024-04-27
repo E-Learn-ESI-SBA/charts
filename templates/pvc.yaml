@@ -6,7 +6,7 @@ metadata:
   namespace: madaurus
   name: {{ .Values.pvc.name }}
 spec:
-  storageClassName: maduarus-sc # Constant value for now
+  storageClassName: madaurus-sc # Constant value for now
   volumeName: {{ .Values.pvc.volumeName }}
   accessModes:
     - {{ .Values.pvc.accessModes }}
