@@ -95,12 +95,17 @@ affinity: {}
 pvc:
   enabled: true
   name:  staff-pvc
-  storageClassName: madaurus-sc
   volumeName: staff-pv
   accessModes: ReadWriteOnce
   storage: 10Gi
+  storageLimit: 15Gi
 
-
+pv: 
+  enabled: true
+  name: staff-pv
+  storage: 10Gi
+  mode: ReadWriteOnce
+  hostPath: /data/staff    
 #! local database 
 
 localDatabase:

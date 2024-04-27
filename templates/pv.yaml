@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.pv.name }}
+spec:
+  storageClassName: ""  
+  capacity:
+    storage: {{ .Values.pv.storage }}  # Specify storage capacity
+  accessModes:
+    - ReadWriteOnce  
+  hostPath:  
+    path: {{ .Values.pv.hostPath }}  # Specify the path on the host
+    type: Directory  # Set type to Directory
