@@ -20,9 +20,9 @@ jobs:
             # - name: Login to ACR using Helm
               # run: echo ${{ secrets.AZURE_REGISTRY_PASSWORD }} | helm registry login ${{ env.AZURE_REGISTRY }} --username ${{ env.AZURE_REGISTRY_USER }} --password-stdin
             - name: Test Helm With materials Values
-              run: helm lint . -f values/material/${{ env.environment }}.values.yaml
+              run: helm lint . -f material.${{ env.environment }}.values.yaml
             - name: Test Helm With staff Values
-              run: helm lint . -f values/staff/${{ env.environment }}.values.yaml              
+              run: helm lint . -f staff.${{ env.environment }}.values.yaml              
             
         
                 
