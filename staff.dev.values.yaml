@@ -16,7 +16,7 @@ serviceAccount:
   create: true
   automount: true
   annotations: {}
-  name: "staff service"
+  name: staff
 
 podAnnotations: {}
 podLabels: {}
