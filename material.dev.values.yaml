@@ -35,7 +35,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 80
+  port: 8080
   targetPort: 8080
 
 ingress:
@@ -136,7 +136,7 @@ pv:
 
 container:
   name: material
-  port: 80
+  port: 8080
   containerPort: 8080
   env:
         -  name: ENVIRONMENT
