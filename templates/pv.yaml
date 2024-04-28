@@ -1,17 +1,15 @@
 # Create Presistent Volume template for Database
-{{- if .Values.pvdb.enabled  -}}
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: {{ .Values.pvdb.name }}
+  name: {{ .Values.pv.name }}
 spec:
   capacity:
-    storage: {{ .Values.pvdb.storage }} # Specify storage capacity
+    storage: { { .Values.pv.storage } } # Specify storage capacity
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: {{ .Values.pvdb.hostPath }} # Specify the path on the host
+    path: {{ .Values.pv.hostPath }} # Specify the path on the host
     type: Directory # Set type to Directory
 
-{{- end}}
 
