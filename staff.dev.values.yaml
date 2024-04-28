@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: madaurus.azurecr.io/staff
+  repository: madaurus/staff
   pullPolicy: IfNotPresent
   tag: "latest"
 

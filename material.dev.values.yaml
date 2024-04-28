@@ -4,7 +4,7 @@ replicaCount: 1
 deployment: 
       name: materials
 image:
-  repository:  madaurus.azurecr.io/materials
+  repository:  madaurus/materials
   pullPolicy: IfNotPresent
   tag: "latest"
 
