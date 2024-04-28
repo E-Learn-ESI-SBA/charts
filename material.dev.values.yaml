@@ -132,8 +132,7 @@ pv:
   mode: ReadWriteOnce
   hostPath: /data/app/material
 
-pvdb:
-  enabled: false
+
 container:
   name: material
   port: 80

@@ -131,7 +131,7 @@ localDatabase:
   volume:
     - name: default-storage
       persistentVolumeClaim:
-        claimName: staff-db-pvc        
+        claimName: staff-pvc        
 
 secrets: 
     enabled: true
@@ -168,12 +168,12 @@ configmap:
     data:
       environment: "development"
 
-pvdb:
-  enabled: true
-  name: staff-db-pv
-  storage: 2Gi
-  hostPath: /data/database/staff      
-  storageLimit: 2Gi
-  volumeName: staff-db-pv
-  pvcName: staff-db-pvc
-  accessModes: ReadWriteOnce
+# pvdb:
+#   enabled: true
+#   name: staff-db-pv
+#   storage: 2Gi
+#   hostPath: /data/database/staff      
+#   storageLimit: 2Gi
+#   volumeName: staff-db-pv
+#   pvcName: staff-db-pvc
+#   accessModes: ReadWriteOnce
