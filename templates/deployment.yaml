@@ -43,6 +43,7 @@ spec:
               protocol: TCP
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
+          initialDelaySeconds: 5  
           readinessProbe:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
           resources:
