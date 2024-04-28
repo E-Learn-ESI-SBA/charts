@@ -82,7 +82,7 @@ autoscaling:
 
 # Additional volumes on the output Deployment definition.
 volumes: 
-    - name: default_storage
+    - name: default-storage
       persistentVolumeClaim:
         claimName: material-pvc
 # - name: foo
@@ -92,7 +92,7 @@ volumes:
 
 # Additional volumeMounts on the output Deployment definition.
 volumeMounts:
-    - name: default_storage
+    - name: default-storage
       mountPath: "/app/storage"
 # - name: foo
 #   mountPath: "/etc/foo"

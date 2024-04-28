@@ -78,7 +78,7 @@ autoscaling:
 
 # Additional volumes on the output Deployment definition.
 volumes: 
-      - name: default_storage
+      - name: default-storage
         persistentVolumeClaim:
           claimName: staff-pvc
 # - name: foo
@@ -87,7 +87,7 @@ volumes:
 #     optional: false
 
 volumeMounts:
-    - name: default_storage
+    - name: default-storage
       mountPath: "/app/storage"
 
 nodeSelector: {}
@@ -126,10 +126,10 @@ localDatabase:
       value: localhost
   
   volumeMounts:
-    - name: default_storage
+    - name: default-storage
       mountPath: /var/lib/postgresql/data
   volume:
-    - name: default_storage
+    - name: default-storage
       persistentVolumeClaim:
         claimName: staff-db-pvc        
 
