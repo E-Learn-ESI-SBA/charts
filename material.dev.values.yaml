@@ -146,7 +146,7 @@ container:
         -  name: JWT_SECRET
            valueFrom:
             secretKeyRef:
-              name: materials-secrets
+              name: material-secrets
               key: "JWT_SECRET"
 
 localDatabase:

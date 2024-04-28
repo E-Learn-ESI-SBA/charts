@@ -154,12 +154,12 @@ container:
         -  name: JWT_SECRET
            valueFrom:
             secretKeyRef:
-              name: materials-secrets
+              name: staff-secrets
               key: "JWT_SECRET"
         -  name: SECRET_KEY
            valueFrom:
             secretKeyRef:
-              name: materials-secrets
+              name: staff-secrets
               key: "SECRET_KEY"
 
 configmap:
