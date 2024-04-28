@@ -127,7 +127,11 @@ localDatabase:
   
   volumeMounts:
     - name: default_storage
-      mountPath: /var/lib/postgresql/data    
+      mountPath: /var/lib/postgresql/data
+  volume:
+    - name: default_storage
+      persistentVolumeClaim:
+        claimName: staff-db-pvc        
 
 secrets: 
     enabled: true
@@ -163,3 +167,12 @@ configmap:
     name: staff-config
     data:
       environment: "development"
+
+pvdb:
+  enabled: true
+  name: staff-db-pv
+  storage: 2Gi
+  hostPath: /data/database/staff      
+  storageLimit: 2Gi
+  volumeName: staff-db-pv
+  accessModes: ReadWriteOnce
