@@ -14,5 +14,6 @@ spec:
       storage: {{ .Values.pvc.storage }}
     limits:
       storage: {{ .Values.pvc.storageLimit }}  
+  storageClassName: manual
 
 {{- end }}
