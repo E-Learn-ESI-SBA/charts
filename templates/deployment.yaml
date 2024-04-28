@@ -55,22 +55,7 @@ spec:
           volumeMounts:
             {{- toYaml . | nindent 12 }}
           {{- end }}
-          spec: 
-        {{- if .Values.localDatabase.enabled }}
-        {{- with .Values.localDatabase}}
-        - name:  {{.Values.localDatabase.name}}
-          image: "{{.Values.localDatabase.image.repository}}:{{ .Values.localDatabase.image.tag }}"
-          imagePullPolicy: {{ .Values.localDatabase.image.pullPolicy }}
-          ports:
-            - name: tcp
-              containerPort: {{.Values.localDatabase.port}}
-              protocol: TCP
-          env:
-            {{- toYaml .Values.localDatabase.env | nindent 12 }}
-          volumeMounts:
-            {{- toYaml .Values.localDatabase.volumeMounts | nindent 12 }}
-        {{- end}}
-        {{- end }}
+        
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}

@@ -110,33 +110,35 @@ pv:
   storage: 10Gi
   mode: ReadWriteOnce
   hostPath: /data/app/staff    
-#! local database 
 
-localDatabase:
-  enabled: true
-  name: staff-db
-  image: 
-    repository: postgres
-    tag: 13.14-bullseye
-    pullPolicy: IfNotPresent
-  port: 5432
-  env:
-    - name: POSTGRES_DB
-      value: postgres
-    - name: POSTGRES_USER
-      value: postgres
-    - name: POSTGRES_PASSWORD
-      value: postgres
-    - name: DB_HOST
-      value: localhost
-  
-  volumeMounts:
-    - name: default-storage
-      mountPath: /var/lib/postgresql/data
-  volume:
-    - name: default-storage
-      persistentVolumeClaim:
-        claimName: staff-pvc        
+
+
+
+# localDatabase:
+#     dbName: staff-db
+#     enabled: true
+#     image: 
+#       repository: postgres
+#       tag: 13.14-bullseye
+#       pullPolicy: IfNotPresent
+#     port: 5432
+#     env:
+#       - name: POSTGRES_DB
+#         value: postgres
+#       - name: POSTGRES_USER
+#         value: postgres
+#       - name: POSTGRES_PASSWORD
+#         value: postgres
+#       - name: DB_HOST
+#         value: localhost
+    
+#     volumeMounts:
+#       - name: default-storage
+#         mountPath: /var/lib/postgresql/data
+#     volume:
+#       - name: default-storage
+#         persistentVolumeClaim:
+#           claimName: staff-pvc        
 
 secrets: 
     enabled: true
@@ -166,7 +168,19 @@ container:
             secretKeyRef:
               name: staff-secrets
               key: "SECRET_KEY"
-
+        -  name: DB_PASS
+           valueFrom:
+            secretKeyRef:
+              name: madaurus-postgres-postgresql
+              key: "postgres-password"                 
+        -  name: DB_HOST
+           value: madaurus-postgres-postgresql
+        -  name: DB_PORT
+           value: "5432"
+        -  name: DB_USER
+           value: postgres
+        -  name: DB_NAME
+           value: staff       
 configmap:
     enabled: true
     name: staff-config
