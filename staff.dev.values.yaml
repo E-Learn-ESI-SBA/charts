@@ -175,4 +175,5 @@ pvdb:
   hostPath: /data/database/staff      
   storageLimit: 2Gi
   volumeName: staff-db-pv
+  pvcName: staff-db-pvc
   accessModes: ReadWriteOnce
