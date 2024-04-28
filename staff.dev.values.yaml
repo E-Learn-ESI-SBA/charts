@@ -108,7 +108,7 @@ pv:
   name: staff-pv
   storage: 10Gi
   mode: ReadWriteOnce
-  hostPath: /data/staff    
+  hostPath: /data/app/staff    
 #! local database 
 
 localDatabase:

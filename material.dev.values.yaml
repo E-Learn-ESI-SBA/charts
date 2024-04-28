@@ -130,7 +130,7 @@ pv:
   name: material-pv
   storage: 30Gi
   mode: ReadWriteOnce
-  hostPath: /data/material
+  hostPath: /data/app/material
 
 pvdb:
   enabled: false
