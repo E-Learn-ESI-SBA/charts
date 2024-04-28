@@ -11,7 +11,10 @@ spec:
         - {{ .Values.pvdb.accessModes }}
     resources:
         requests:
-        storage: {{ .Values.pvdb.storage }}
+             storage: {{ .Values.pvdb.storage }}
         limits:
-        storage: {{ .Values.pvdb.storageLimit }}  
+             storage: {{ .Values.pvdb.storageLimit }}  
 {{- end}}
+
+
+
