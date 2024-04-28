@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: madaurus/staff
   pullPolicy: IfNotPresent
-  tag: "v1.0.1"
+  tag: "v1.0.2"
 
 
 
@@ -63,12 +63,15 @@ resources:
 
 livenessProbe:
   httpGet:
-    path: /
+    path: /admin
     port: http
+  initialDelaySeconds: 8
+
 readinessProbe:
   httpGet:
-    path: /
+    path: /admin
     port: http
+  initialDelaySeconds: 8
 
 autoscaling:
   enabled: true
