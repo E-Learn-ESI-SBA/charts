@@ -5,7 +5,7 @@ metadata:
   name: {{ .Values.pv.name }}
 spec:
   capacity:
-    storage: { { .Values.pv.storage } } # Specify storage capacity
+    storage: {{ .Values.pv.storage }} # Specify storage capacity
   accessModes:
     - ReadWriteOnce
   hostPath:
