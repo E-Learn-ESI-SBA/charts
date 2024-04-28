@@ -6,7 +6,7 @@ deployment:
 image:
   repository:  madaurus/materials
   pullPolicy: IfNotPresent
-  tag: "latest"
+  tag: "v1.0.0"
 
 
 imagePullSecrets: []
@@ -69,11 +69,12 @@ livenessProbe:
   httpGet:
     path: /
     port: http
+  initialDelaySeconds: 8  
 readinessProbe:
   httpGet:
     path: /
     port: http
-
+  initialDelaySeconds: 8
 autoscaling:
   enabled: true
   minReplicas: 1
