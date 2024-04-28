@@ -57,6 +57,9 @@ spec:
           volumeMounts:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+          spec: 
+              imagePullSecrets:
+                - name: acr-token
         {{- if .Values.localDatabase.enabled}}
         {{- with .Values.localDatabase}}
         - name:  {{.Values.localDatabase.name}}
