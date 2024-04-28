@@ -56,14 +56,15 @@ spec:
             {{- toYaml . | nindent 12 }}
           {{- end }}
           spec: 
-              imagePullSecrets:
-                - name: acr-token
-        {{- if .Values.localDatabase.enabled}}
+        {{- if .Values.localDatabase.enabled }}
         {{- with .Values.localDatabase}}
         - name:  {{.Values.localDatabase.name}}
-          image: {{.Values.localDatabase.image}}
+          image: "{{.Values.localDatabase.image.repository}}:{{ .Values.localDatabase.image.tag }}"
+          imagePullPolicy: {{ .Values.localDatabase.image.pullPolicy }}
           ports:
-            - containerPort: {{.Values.localDatabase.port}}
+            - name: tcp
+              containerPort: {{.Values.localDatabase.port}}
+              protocol: TCP
           env:
             {{- toYaml .Values.localDatabase.env | nindent 12 }}
           volumeMounts:
