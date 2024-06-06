@@ -6,6 +6,7 @@ deployment:
 image:
   repository:  permitio/pdp
   pullPolicy: IfNotPresent
+  tag: "latest"
 
 
 imagePullSecrets: []
