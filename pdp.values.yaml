@@ -1,0 +1,138 @@
+
+replicaCount: 1
+
+deployment: 
+      name: pdp
+image:
+  repository:  permitio/pdp
+  pullPolicy: IfNotPresent
+
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  create: false
+  automount: true
+  annotations: {}
+  name: pdp
+
+    
+podLabels: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 7000
+  targetPort: 7000
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: pdp.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+
+
+
+# Writing Max resources for simple go app
+resources: 
+  limits:
+    cpu: 80m
+    memory: 120Mi
+  requests:
+    cpu: 60m
+    memory: 110Mi
+
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 8  
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 8
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 2 
+  targetCPUUtilizationPercentage: 40
+
+volumes: {}
+
+volumeMounts: {}
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+
+
+
+
+
+
+secrets: 
+    enabled: true
+    name: pdp-secrets
+    data:
+      PERMIT_TOKEN: permit_key_dyl2zhOIm2EXssDKP33JGbqGKKPiZarQjl0AcL7ZYvsYsLz2zFGDWcdRghccmR0EEJF5TS8c99g5ItDHl87alV
+
+pvc:
+  enabled: false
+  name: material-pvc
+  volumeName: material-pv
+  accessModes: ReadWriteOnce
+  storage: 25Gi
+  storageLimit: 30Gi
+
+
+pv: 
+  enabled: false
+  name: material-pv
+  storage: 30Gi
+  mode: ReadWriteOnce
+  hostPath: /data/app/material
+
+
+container:
+  name: pdp
+  port: 7000
+  containerPort: 7000
+  env:
+        -  name: CLIENT_TOKEN
+           valueFrom:
+            secretKeyRef:
+              name: pdp-secrets
+              key: "PERMIT_TOKEN"
+
+localDatabase:
+      enabled: false
+
+configmap:
+    enabled: false
+    name: pdp-config
+    data:
+      environment: "development"

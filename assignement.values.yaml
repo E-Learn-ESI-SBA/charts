@@ -5,9 +5,9 @@
 replicaCount: 1
 
 image:
-  repository: madaurus/staff
+  repository: madaurus/assignments
   pullPolicy: IfNotPresent
-  tag: "v1.2.4"
+  tag: "v1.2.3"
 
 
 
@@ -16,7 +16,7 @@ serviceAccount:
   create: true
   automount: true
   annotations: {}
-  name: staff
+  name: assignments
 
 podAnnotations: {}
 podLabels: {}
@@ -55,21 +55,21 @@ ingress:
 
 resources: 
   limits:
-    cpu: 120m
-    memory: 320Mi
+    cpu: 60m
+    memory: 220Mi
   requests:
-    cpu: 100m
-    memory: 280Mi
+    cpu: 50m
+    memory: 132Mi
 
 livenessProbe:
   httpGet:
-    path: /admin
+    path: /
     port: http
   initialDelaySeconds: 8
 
 readinessProbe:
   httpGet:
-    path: /admin
+    path: /
     port: http
   initialDelaySeconds: 8
 
@@ -84,7 +84,7 @@ autoscaling:
 volumes: 
       - name: default-storage
         persistentVolumeClaim:
-          claimName: staff-pvc
+          claimName: assignments-pvc
 # - name: foo
 #   secret:
 #     secretName: mysecret
@@ -92,7 +92,7 @@ volumes:
 
 volumeMounts:
     - name: default-storage
-      mountPath: "/app/storage"
+      mountPath: "/app/uploads"
 
 nodeSelector: {}
 
@@ -101,24 +101,24 @@ tolerations: []
 affinity: {}
 pvc:
   enabled: true
-  name:  staff-pvc
-  volumeName: staff-pv
+  name:  assignments-pvc
+  volumeName: assignments-pv
   accessModes: ReadWriteOnce
-  storage: 2Gi
-  storageLimit: 2.2Gi
+  storage: 4Gi
+  storageLimit: 4.2Gi
 
 pv: 
   enabled: true
-  name: staff-pv
-  storage: 3Gi
+  name: assignments-pv
+  storage: 4.6Gi
   mode: ReadWriteOnce
-  hostPath: /data/app/staff    
+  hostPath: /data/app/assignments    
 
 
 
 
 # localDatabase:
-#     dbName: staff-db
+#     dbName: assignments-db
 #     enabled: true
 #     image: 
 #       repository: postgres
@@ -141,11 +141,11 @@ pv:
 #     volume:
 #       - name: default-storage
 #         persistentVolumeClaim:
-#           claimName: staff-pvc        
+#           claimName: assignments-pvc        
 
 secrets: 
     enabled: true
-    name: staff-secrets
+    name: assignments-secrets
     data:
       JWT_SECRET: oXpyiGrnL3O6AUa9b7eyTohpFeSBzQLwWHEzTJZ71x8=
       SECRET_KEY: oXpyiGrnL3O6AUa9b7eyTohpFeSBzQLwWHEzTJZ71x8=
@@ -153,24 +153,24 @@ secrets:
 
 
 container:
-  name: staff
+  name: assignments
   port: 8080
   containerPort: 8080
   env:
         -  name: ENVIRONMENT
            valueFrom:
             configMapKeyRef:
-              name: staff-config
+              name: assignments-config
               key: "environment" 
         -  name: JWT_SECRET
            valueFrom:
             secretKeyRef:
-              name: staff-secrets
+              name: assignments-secrets
               key: "JWT_SECRET"
         -  name: SECRET_KEY
            valueFrom:
             secretKeyRef:
-              name: staff-secrets
+              name: assignments-secrets
               key: "SECRET_KEY"
         -  name: DB_PASS
            valueFrom:
@@ -184,18 +184,18 @@ container:
         -  name: DB_USER
            value: postgres
         -  name: DB_NAME
-           value: staff
+           value: assignment
         -  name: PDP_SERVER
            value: http://pdp-madaurus          
         -  name: KAFKA_BROKER
            valueFrom:
             configMapKeyRef:
-              name: staff-config
+              name: assignments-config
               key: "KAFKA_BROKER"
                
 configmap:
     enabled: true
-    name: staff-config
+    name: assignments-config
     data:
       environment: "production"
       PDP_SERVER: http://pdp-madaurus

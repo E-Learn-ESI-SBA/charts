@@ -1,25 +1,24 @@
+# Default values for ..
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
 
-replicaCount: 2
+replicaCount: 1
 
-deployment: 
-      name: materials
 image:
-  repository:  madaurus/materials
+  repository: madaurus/communication
   pullPolicy: IfNotPresent
-  tag: "v1.2.4"
+  tag: "v1.2.6"
 
 
-imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
+
 
 serviceAccount:
   create: true
   automount: true
   annotations: {}
-  name: materials
+  name: communication
 
-    
+podAnnotations: {}
 podLabels: {}
 
 podSecurityContext: {}
@@ -54,135 +53,123 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-
-# Writing Max resources for simple go app
 resources: 
   limits:
-    cpu: 160m
+    cpu: 120m
     memory: 320Mi
   requests:
-    cpu: 110m
-    memory: 200Mi
-
+    cpu: 100m
+    memory: 280Mi
 
 livenessProbe:
   httpGet:
     path: /
     port: http
-  initialDelaySeconds: 8  
+  initialDelaySeconds: 8
+
 readinessProbe:
   httpGet:
     path: /
     port: http
   initialDelaySeconds: 8
+
 autoscaling:
   enabled: true
   minReplicas: 1
-  maxReplicas: 4 
-  targetCPUUtilizationPercentage: 80
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 75
   # targetMemoryUtilizationPercentage: 80
 
 # Additional volumes on the output Deployment definition.
 volumes: 
-    - name: default-storage
-      persistentVolumeClaim:
-        claimName: material-pvc
+      - name: default-storage
+        persistentVolumeClaim:
+          claimName: communication-pvc
 # - name: foo
 #   secret:
 #     secretName: mysecret
 #     optional: false
 
-# Additional volumeMounts on the output Deployment definition.
 volumeMounts:
     - name: default-storage
       mountPath: "/app/storage"
-# - name: foo
-#   mountPath: "/etc/foo"
-#   readOnly: true
 
 nodeSelector: {}
 
 tolerations: []
 
 affinity: {}
+pvc:
+  enabled: true
+  name:  communication-pvc
+  volumeName: communication-pv
+  accessModes: ReadWriteOnce
+  storage: 2Gi
+  storageLimit: 2.2Gi
+
+pv: 
+  enabled: true
+  name: communication-pv
+  storage: 3Gi
+  mode: ReadWriteOnce
+  hostPath: /data/app/communication    
 
 
-
-
-
-
+    
 
 secrets: 
     enabled: true
-    name: material-secrets
+    name: communication-secrets
     data:
       JWT_SECRET: oXpyiGrnL3O6AUa9b7eyTohpFeSBzQLwWHEzTJZ71x8=
       PERMIT_TOKEN: permit_key_dyl2zhOIm2EXssDKP33JGbqGKKPiZarQjl0AcL7ZYvsYsLz2zFGDWcdRghccmR0EEJF5TS8c99g5ItDHl87alV
 
-pvc:
-  enabled: true
-  name: material-pvc
-  volumeName: material-pv
-  accessModes: ReadWriteOnce
-  storage: 25Gi
-  storageLimit: 30Gi
-
-
-pv: 
-  enabled: true
-  name: material-pv
-  storage: 30Gi
-  mode: ReadWriteOnce
-  hostPath: /data/app/material
 
 
 container:
-  name: material
+  name: communication
   port: 8080
   containerPort: 8080
   env:
         -  name: ENVIRONMENT
            valueFrom:
             configMapKeyRef:
-              name: materials-config
+              name: communication-config
               key: "environment" 
         -  name: JWT_SECRET
            valueFrom:
             secretKeyRef:
-              name: material-secrets
+              name: communication-secrets
               key: "JWT_SECRET"
-        - name: PERMIT_TOKEN
-          valueFrom:
+
+        -  name: DB_PASS
+           valueFrom:
             secretKeyRef:
-              name: material-secrets
-              key: "PERMIT_TOKEN"
-        - name: PDP_SERVER
-          value: http://pdp-madaurus       
-        - name: database_uri
-          valueFrom:
+              name: madaurus-postgres-postgresql
+              key: "postgres-password"                 
+        -  name: DB_HOST
+           value: madaurus-postgres-postgresql
+        -  name: DB_PORT
+           value: "5432"
+        -  name: DB_USER
+           value: postgres
+        -  name: DB_NAME
+           value: communication
+        -  name: PDP_SERVER
+           value: http://pdp-madaurus          
+        -  name: KAFKA_BROKER
+           valueFrom:
             configMapKeyRef:
-              name: materials-config
-              key: "database_uri"
-        - name: sentry_dsn
-          valueFrom:
-            configMapKeyRef:
-              name: materials-config
-              key: "sentry_dsn"     
-        - name: KAFKA_BROKER
-          valueFrom:
-            configMapKeyRef:
-              name: materials-config
-              key: "KAFKA_BROKER"            
-
-localDatabase:
-      enabled: false
-
+              name: communication-config
+              key: "KAFKA_BROKER"
+               
 configmap:
     enabled: true
-    name: materials-config
+    name: communication-config
     data:
       environment: "production"
-      sentry_dsn: "https://1168f4da88bba3f9669f88cbcc76cc11@o4506915435053056.ingest.us.sentry.io/4506994124718080"
-      PDP_SERVER: http://localhost:7766
-      database_uri: "mongodb://mongo-mongodb:27017/material"
+      PDP_SERVER: http://pdp-madaurus
       KAFKA_BROKER: kafka-cluster-kafka-brokers
+      KAFKA_BROKER2: kafka-cluster-kafka-brokers:9091
+
+

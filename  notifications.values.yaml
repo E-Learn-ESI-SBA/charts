@@ -2,11 +2,11 @@
 replicaCount: 2
 
 deployment: 
-      name: materials
+      name: notification
 image:
-  repository:  madaurus/materials
+  repository:  madaurus/notification
   pullPolicy: IfNotPresent
-  tag: "v1.2.4"
+  tag: "v1.0.2"
 
 
 imagePullSecrets: []
@@ -17,7 +17,7 @@ serviceAccount:
   create: true
   automount: true
   annotations: {}
-  name: materials
+  name: notification
 
     
 podLabels: {}
@@ -35,8 +35,8 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 8080
-  targetPort: 8080
+  port: 3000
+  targetPort: 3000
 
 ingress:
   enabled: false
@@ -58,11 +58,11 @@ ingress:
 # Writing Max resources for simple go app
 resources: 
   limits:
-    cpu: 160m
-    memory: 320Mi
+    cpu: 80m
+    memory: 120Mi
   requests:
-    cpu: 110m
-    memory: 200Mi
+    cpu: 40m
+    memory: 100Mi
 
 
 livenessProbe:
@@ -76,29 +76,10 @@ readinessProbe:
     port: http
   initialDelaySeconds: 8
 autoscaling:
-  enabled: true
+  enabled: false
   minReplicas: 1
   maxReplicas: 4 
   targetCPUUtilizationPercentage: 80
-  # targetMemoryUtilizationPercentage: 80
-
-# Additional volumes on the output Deployment definition.
-volumes: 
-    - name: default-storage
-      persistentVolumeClaim:
-        claimName: material-pvc
-# - name: foo
-#   secret:
-#     secretName: mysecret
-#     optional: false
-
-# Additional volumeMounts on the output Deployment definition.
-volumeMounts:
-    - name: default-storage
-      mountPath: "/app/storage"
-# - name: foo
-#   mountPath: "/etc/foo"
-#   readOnly: true
 
 nodeSelector: {}
 
@@ -114,75 +95,66 @@ affinity: {}
 
 secrets: 
     enabled: true
-    name: material-secrets
+    name: notification-secrets
     data:
       JWT_SECRET: oXpyiGrnL3O6AUa9b7eyTohpFeSBzQLwWHEzTJZ71x8=
       PERMIT_TOKEN: permit_key_dyl2zhOIm2EXssDKP33JGbqGKKPiZarQjl0AcL7ZYvsYsLz2zFGDWcdRghccmR0EEJF5TS8c99g5ItDHl87alV
 
 pvc:
-  enabled: true
-  name: material-pvc
-  volumeName: material-pv
+  enabled: false
+  name: notification-pvc
+  volumeName: notification-pv
   accessModes: ReadWriteOnce
   storage: 25Gi
   storageLimit: 30Gi
 
 
 pv: 
-  enabled: true
-  name: material-pv
+  enabled: false
+  name: notification-pv
   storage: 30Gi
   mode: ReadWriteOnce
-  hostPath: /data/app/material
+  hostPath: /data/app/notification
 
 
 container:
-  name: material
-  port: 8080
-  containerPort: 8080
+  name: notification
+  port: 3000
+  containerPort: 3000
   env:
         -  name: ENVIRONMENT
            valueFrom:
             configMapKeyRef:
-              name: materials-config
+              name: notification-config
               key: "environment" 
         -  name: JWT_SECRET
            valueFrom:
             secretKeyRef:
-              name: material-secrets
+              name: notification-secrets
               key: "JWT_SECRET"
         - name: PERMIT_TOKEN
           valueFrom:
             secretKeyRef:
-              name: material-secrets
+              name: notification-secrets
               key: "PERMIT_TOKEN"
         - name: PDP_SERVER
           value: http://pdp-madaurus       
-        - name: database_uri
-          valueFrom:
-            configMapKeyRef:
-              name: materials-config
-              key: "database_uri"
-        - name: sentry_dsn
-          valueFrom:
-            configMapKeyRef:
-              name: materials-config
-              key: "sentry_dsn"     
         - name: KAFKA_BROKER
           valueFrom:
             configMapKeyRef:
-              name: materials-config
-              key: "KAFKA_BROKER"            
+              name: notification-config
+              key: "KAFKA_BROKER"    
+        - name: KAFKA_GROUP_ID
+          value: notification-group              
 
 localDatabase:
       enabled: false
-
 configmap:
     enabled: true
-    name: materials-config
+    name: notification-config
     data:
       environment: "production"
-      sentry_dsn: "https://1168f4da88bba3f9669f88cbcc76cc11@o4506915435053056.ingest.us.sentry.io/4506994124718080"
+      sentry_dsn: "https://1168f4da88bba3f9669f88cbcc76cc11@o4506915435053056.ingest.us.sentry.io/4506994124713000"
       PDP_SERVER: http://localhost:7766
-      database_uri: "mongodb://mongo-mongodb:27017/material"
+      database_uri: "mongodb://mongo-mongodb:27017/notification"
       KAFKA_BROKER: kafka-cluster-kafka-brokers
