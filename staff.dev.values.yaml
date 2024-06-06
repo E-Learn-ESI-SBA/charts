@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: madaurus/staff
   pullPolicy: IfNotPresent
-  tag: "v1.2.4"
+  tag: "v1.2.5"
 
 
 

@@ -164,7 +164,8 @@ container:
         - name: PERMIT_TOKEN
           valueFrom:
             configMapKeyRef:
-              name: communication-config      
+              name: communication-config   
+              key: "PERMIT_TOKEN"   
                
 configmap:
     enabled: true

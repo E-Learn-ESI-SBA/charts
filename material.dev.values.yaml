@@ -153,7 +153,7 @@ container:
         - name: PERMIT_TOKEN
           valueFrom:
             configMapKeyRef:
-              name: material-config
+              name: materials-config
               key: "PERMIT_TOKEN"
         - name: PDP_SERVER
           value: http://pdp-madaurus       
