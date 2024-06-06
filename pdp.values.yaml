@@ -94,27 +94,6 @@ affinity: {}
 
 
 
-secrets: 
-    enabled: false
-    name: pdp-secrets
-    data:
-
-pvc:
-  enabled: false
-  name: material-pvc
-  volumeName: material-pv
-  accessModes: ReadWriteOnce
-  storage: 25Gi
-  storageLimit: 30Gi
-
-
-pv: 
-  enabled: false
-  name: material-pv
-  storage: 30Gi
-  mode: ReadWriteOnce
-  hostPath: /data/app/material
-
 
 container:
   name: pdp
