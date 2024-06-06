@@ -117,7 +117,6 @@ secrets:
     name: material-secrets
     data:
       JWT_SECRET: oXpyiGrnL3O6AUa9b7eyTohpFeSBzQLwWHEzTJZ71x8=
-      PERMIT_TOKEN: permit_key_dyl2zhOIm2EXssDKP33JGbqGKKPiZarQjl0AcL7ZYvsYsLz2zFGDWcdRghccmR0EEJF5TS8c99g5ItDHl87alV
 
 pvc:
   enabled: true
@@ -153,8 +152,8 @@ container:
               key: "JWT_SECRET"
         - name: PERMIT_TOKEN
           valueFrom:
-            secretKeyRef:
-              name: material-secrets
+            configMapKeyRef:
+              name: material-config
               key: "PERMIT_TOKEN"
         - name: PDP_SERVER
           value: http://pdp-madaurus       
@@ -186,3 +185,5 @@ configmap:
       PDP_SERVER: http://localhost:7766
       database_uri: "mongodb://mongo-mongodb:27017/material"
       KAFKA_BROKER: kafka-cluster-kafka-brokers
+      PERMIT_TOKEN: permit_key_dyl2zhOIm2EXssDKP33JGbqGKKPiZarQjl0AcL7ZYvsYsLz2zFGDWcdRghccmR0EEJF5TS8c99g5ItDHl87alV
+

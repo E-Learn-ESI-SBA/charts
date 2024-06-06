@@ -122,7 +122,6 @@ secrets:
     name: communication-secrets
     data:
       JWT_SECRET: oXpyiGrnL3O6AUa9b7eyTohpFeSBzQLwWHEzTJZ71x8=
-      PERMIT_TOKEN: permit_key_dyl2zhOIm2EXssDKP33JGbqGKKPiZarQjl0AcL7ZYvsYsLz2zFGDWcdRghccmR0EEJF5TS8c99g5ItDHl87alV
 
 
 
@@ -162,6 +161,10 @@ container:
             configMapKeyRef:
               name: communication-config
               key: "KAFKA_BROKER"
+        - name: PERMIT_TOKEN
+          valueFrom:
+            configMapKeyRef:
+              name: communication-config      
                
 configmap:
     enabled: true
@@ -171,5 +174,7 @@ configmap:
       PDP_SERVER: http://pdp-madaurus
       KAFKA_BROKER: kafka-cluster-kafka-brokers
       KAFKA_BROKER2: kafka-cluster-kafka-brokers:9091
+      PERMIT_TOKEN: permit_key_dyl2zhOIm2EXssDKP33JGbqGKKPiZarQjl0AcL7ZYvsYsLz2zFGDWcdRghccmR0EEJF5TS8c99g5ItDHl87alV
+
 
 

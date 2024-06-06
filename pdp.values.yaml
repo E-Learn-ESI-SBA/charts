@@ -95,10 +95,9 @@ affinity: {}
 
 
 secrets: 
-    enabled: true
+    enabled: false
     name: pdp-secrets
     data:
-      PERMIT_TOKEN: permit_key_dyl2zhOIm2EXssDKP33JGbqGKKPiZarQjl0AcL7ZYvsYsLz2zFGDWcdRghccmR0EEJF5TS8c99g5ItDHl87alV
 
 pvc:
   enabled: false
@@ -124,7 +123,7 @@ container:
   env:
         -  name: CLIENT_TOKEN
            valueFrom:
-            secretKeyRef:
+            configMapKeyRef:
               name: pdp-secrets
               key: "PERMIT_TOKEN"
 
@@ -136,3 +135,6 @@ configmap:
     name: pdp-config
     data:
       environment: "development"
+      PERMIT_TOKEN: permit_key_dyl2zhOIm2EXssDKP33JGbqGKKPiZarQjl0AcL7ZYvsYsLz2zFGDWcdRghccmR0EEJF5TS8c99g5ItDHl87alV
+
+      
