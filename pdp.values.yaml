@@ -103,7 +103,7 @@ container:
         -  name: CLIENT_TOKEN
            valueFrom:
             configMapKeyRef:
-              name: pdp-secrets
+              name: pdp-config
               key: "PERMIT_TOKEN"
 
 localDatabase:
