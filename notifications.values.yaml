@@ -6,7 +6,7 @@ deployment:
 image:
   repository:  madaurus/notification
   pullPolicy: IfNotPresent
-  tag: "v1.0.8"
+  tag: "v1.0.10"
 
 
 imagePullSecrets: []
