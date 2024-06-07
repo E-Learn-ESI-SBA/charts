@@ -184,6 +184,6 @@ configmap:
       sentry_dsn: "https://1168f4da88bba3f9669f88cbcc76cc11@o4506915435053056.ingest.us.sentry.io/4506994124718080"
       PDP_SERVER: http://pdp-madaurus
       database_uri: "mongodb+srv://madaurus:bbbb45@madaurus.nredljo.mongodb.net/materials?retryWrites=true&w=majority&appName=madaurus"
-      KAFKA_BROKER: kafka-cluster-kafka-brokers
+      KAFKA_BROKER: kafka-cluster-kafka-brokers:9092
       PERMIT_TOKEN: permit_key_dyl2zhOIm2EXssDKP33JGbqGKKPiZarQjl0AcL7ZYvsYsLz2zFGDWcdRghccmR0EEJF5TS8c99g5ItDHl87alV
 

@@ -202,8 +202,8 @@ configmap:
     data:
       environment: "production"
       PDP_SERVER: http://pdp-madaurus
-      KAFKA_BROKER: kafka-cluster-kafka-brokers
-      KAFKA_BROKER2: kafka-cluster-kafka-brokers:9091
+      KAFKA_BROKER: kafka-cluster-kafka-brokers:9092
+      KAFKA_BROKER2: kafka-cluster-kafka-brokers:9092:9091
       PERMIT_TOKEN: permit_key_dyl2zhOIm2EXssDKP33JGbqGKKPiZarQjl0AcL7ZYvsYsLz2zFGDWcdRghccmR0EEJF5TS8c99g5ItDHl87alV
 
 
