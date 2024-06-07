@@ -129,7 +129,7 @@ container:
               key: "KAFKA_BROKER"    
         - name: KAFKA_GROUP_ID
           value: notification-group     
-        - name: database_uri
+        - name: MONGO_URI
           valueFrom:
             configMapKeyRef:
               name: notification-config
