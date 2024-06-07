@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: madaurus/communication
   pullPolicy: IfNotPresent
-  tag: "v1.2.8"
+  tag: "v1.2.9"
 
 
 
@@ -58,8 +58,8 @@ resources:
     cpu: 500m
     memory: 600Mi
   requests:
-    cpu: 250m
-    memory: 400Mi
+    cpu: 40m
+    memory: 540Mi
 
 livenessProbe:
   httpGet:
