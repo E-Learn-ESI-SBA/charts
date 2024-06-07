@@ -140,7 +140,7 @@ container:
   port: 8080
   containerPort: 8080
   env:
-        -  name: ENVIRONMENT
+        -  name: environment
            valueFrom:
             configMapKeyRef:
               name: materials-config
