@@ -141,18 +141,18 @@ container:
               name: communication-secrets
               key: "JWT_SECRET"
 
-        -  name: DB_PASS
+        -  name: POSTGRES_PASS
            valueFrom:
             secretKeyRef:
               name: madaurus-postgres-postgresql
               key: "postgres-password"                 
-        -  name: DB_HOST
+        -  name: POSTGRES_HOST
            value: madaurus-postgres-postgresql
-        -  name: DB_PORT
+        -  name: POSTGRES_PORT
            value: "5432"
-        -  name: DB_USER
+        -  name: POSTGRES_USER
            value: postgres
-        -  name: DB_NAME
+        -  name: POSTGRES_DB
            value: communication
         -  name: PDP_SERVER
            value: http://pdp-madaurus          

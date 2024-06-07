@@ -1,5 +1,5 @@
 
-replicaCount: 2
+replicaCount: 1
 
 deployment: 
       name: notification
@@ -99,22 +99,6 @@ secrets:
     data:
       JWT_SECRET: oXpyiGrnL3O6AUa9b7eyTohpFeSBzQLwWHEzTJZ71x8=
 
-pvc:
-  enabled: false
-  name: notification-pvc
-  volumeName: notification-pv
-  accessModes: ReadWriteOnce
-  storage: 25Gi
-  storageLimit: 30Gi
-
-
-pv: 
-  enabled: false
-  name: notification-pv
-  storage: 30Gi
-  mode: ReadWriteOnce
-  hostPath: /data/app/notification
-
 
 container:
   name: notification
@@ -146,8 +130,7 @@ container:
         - name: KAFKA_GROUP_ID
           value: notification-group              
 
-localDatabase:
-      enabled: false
+
 configmap:
     enabled: true
     name: notification-config
