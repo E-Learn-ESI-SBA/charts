@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: madaurus/communication
   pullPolicy: IfNotPresent
-  tag: "v1.2.6"
+  tag: "v1.2.7"
 
 
 
@@ -165,7 +165,7 @@ container:
           valueFrom:
             configMapKeyRef:
               name: communication-config   
-              key: "PERMIT_TOKEN"   
+              key: "PERMIT_TOKEN"    
                
 configmap:
     enabled: true
