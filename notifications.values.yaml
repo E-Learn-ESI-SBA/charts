@@ -128,7 +128,12 @@ container:
               name: notification-config
               key: "KAFKA_BROKER"    
         - name: KAFKA_GROUP_ID
-          value: notification-group              
+          value: notification-group     
+        - name: database_uri
+          valueFrom:
+            configMapKeyRef:
+              name: notification-config
+              key: "database_uri"           
 
 
 configmap:
