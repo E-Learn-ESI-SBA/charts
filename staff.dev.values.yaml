@@ -63,13 +63,13 @@ resources:
 
 livenessProbe:
   httpGet:
-    path: /admin
+    path: /
     port: http
   initialDelaySeconds: 8
 
 readinessProbe:
   httpGet:
-    path: /admin
+    path: /
     port: http
   initialDelaySeconds: 8
 
