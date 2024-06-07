@@ -183,7 +183,7 @@ configmap:
       environment: "production"
       sentry_dsn: "https://1168f4da88bba3f9669f88cbcc76cc11@o4506915435053056.ingest.us.sentry.io/4506994124718080"
       PDP_SERVER: http://localhost:7766
-      database_uri: "mongodb://mongo-mongodb:27017/material"
+      database_uri: "mongodb://root:C6MQYMl1SF@mongo-mongodb:27017/material"
       KAFKA_BROKER: kafka-cluster-kafka-brokers
       PERMIT_TOKEN: permit_key_dyl2zhOIm2EXssDKP33JGbqGKKPiZarQjl0AcL7ZYvsYsLz2zFGDWcdRghccmR0EEJF5TS8c99g5ItDHl87alV
 
