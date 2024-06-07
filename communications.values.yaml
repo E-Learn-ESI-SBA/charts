@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: madaurus/communication
   pullPolicy: IfNotPresent
-  tag: "v1.2.30"
+  tag: "v1.2.31"
 
 
 
