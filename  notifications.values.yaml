@@ -58,11 +58,11 @@ ingress:
 # Writing Max resources for simple go app
 resources: 
   limits:
-    cpu: 80m
-    memory: 120Mi
+    cpu: 160m
+    memory: 260Mi
   requests:
-    cpu: 40m
-    memory: 100Mi
+    cpu: 110m
+    memory: 220Mi
 
 
 livenessProbe:
