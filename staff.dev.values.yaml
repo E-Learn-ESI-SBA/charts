@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: madaurus/staff
   pullPolicy: IfNotPresent
-  tag: "v1.2.6"
+  tag: "v1.2.7"
 
 
 
@@ -55,21 +55,21 @@ ingress:
 
 resources: 
   limits:
-    cpu: 120m
+    cpu: 180m
     memory: 320Mi
   requests:
-    cpu: 100m
+    cpu: 140m
     memory: 280Mi
 
 livenessProbe:
   httpGet:
-    path: /
+    path: /health-check
     port: http
   initialDelaySeconds: 8
 
 readinessProbe:
   httpGet:
-    path: /
+    path: /health-check
     port: http
   initialDelaySeconds: 8
 
